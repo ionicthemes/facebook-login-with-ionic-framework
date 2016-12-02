@@ -44,39 +44,27 @@ angular.module('controllers', [])
   });*/
 
 })
-.controller('AppCtrl', function($scope){
 
-})
+.controller('HomeCtrl', function($scope, UserService, $ionicActionSheet, $state, $ionicLoading, $cordovaGeolocation){
 
-.controller('HomeCtrl', function($scope, UserService, $ionicActionSheet, $state, $ionicLoading){
+  var options = {timeout: 10000, enableHighAccuracy: true};
 
-	$scope.user = UserService.getUser();
+  $cordovaGeolocation.getCurrentPosition(options).then(function(position){
 
-	$scope.showLogOutMenu = function() {
-		var hideSheet = $ionicActionSheet.show({
-			destructiveText: 'Logout',
-			titleText: 'Are you sure you want to logout? This app is awsome so I recommend you to stay.',
-			cancelText: 'Cancel',
-			cancel: function() {},
-			buttonClicked: function(index) {
-				return true;
-			},
-			destructiveButtonClicked: function(){
-				$ionicLoading.show({
-					template: 'Logging out...'
-				});
+    var latLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
 
-        //facebook logout
-        facebookConnectPlugin.logout(function(){
-          $ionicLoading.hide();
-          $state.go('welcome');
-        },
-        function(fail){
-          $ionicLoading.hide();
-        });
-			}
-		});
-	};
+    var mapOptions = {
+      center: latLng,
+      zoom: 15,
+      mapTypeId: google.maps.MapTypeId.ROADMAP
+    };
+
+    $scope.map = new google.maps.Map(document.getElementById("map"), mapOptions);
+
+  }, function(error){
+    console.log("Could not get location");
+  });
+
 })
 
 ;
