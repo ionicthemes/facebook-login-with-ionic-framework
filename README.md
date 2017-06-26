@@ -2,7 +2,7 @@
 
 This repository is an example app of how to add Facebook Native authentication into an Ionic Framework app.
 
-## Follow the step-by-step instructions available here: https://ionicthemes.com/learn/about/native-facebook-login-with-ionic-framework
+## Follow the step-by-step instructions available here: https://ionicthemes.com/tutorials/about/native-facebook-login-with-ionic-framework
 
 **Why adding Facebook Authentication into your app will benefit you and your users?**
 
